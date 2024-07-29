@@ -1,0 +1,45 @@
+models:
+  #ID Stitching Model(s)
+  - name: customer_id_graph
+    model_type: id_stitcher
+    model_spec:
+      validity_time: 24h # 1 day
+      entity_key: user
+      # materialization:
+      #   run_type: incremental
+      edge_sources:
+        - from: inputs/appsflyer
+        - from: inputs/dwh
+  #        - from: inputs/ga_be
+  #        - from: inputs/ga_ro
+  #        - from: inputs/ga_pl
+  #        - from: inputs/ga_com
+  #        - from: inputs/ga_rs
+  - name: customer_profile
+  - model_type: feature_table_model
+  - model_spec:
+    validity_time: 24h # 1 day
+    entity_key: user
+    features: #THIS DEFINES THE OUTPUT TABLE !!!!!!!!
+      - PLAYER_EXTERNAL_CODE
+      - EMAIL
+      - DATE_TIME
+  - name: user_vars
+    entity_key: user
+    vars:
+      - entity_var:
+          name: CUSTOMER_USER_ID
+          from: models/appsflyer
+          select: CUSTOMER_USER_ID
+          where: CUSTOMER_USER_ID is not null AND BUSINESS_DOMAIN_CODE = 3 #need to check if there is an option of creating multiple features with one entity variable or is it one variable one feature
+          description: external user ids from appsflyer data
+      - entity_var:
+          name: PLAYER_EXTERNAL_CODE
+          select: PLAYER_EXTERNAL_CODE
+          from: inputs/dwh
+          where: BUSINESS_DOMAIN_CODE = 3
+      - entity_var:
+          name: EMAIL
+          select: EMAIL
+          from: inputs/dwh
+          where: BUSINESS_DOMAIN_CODE = 3

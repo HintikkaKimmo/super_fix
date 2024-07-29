@@ -1,0 +1,78 @@
+inputs:
+  - name: appsflyer
+    app_defaults:
+      table: SBX_DP.VW_ODS_ADVERITY_APPSFLYER_INSTALLS_REPORT__RAW
+      occurred_at_col: EVENT_TIME
+      ids:
+        - select: CUSTOMER_USER_ID
+          type: PLAYER_EXTERNAL_CODE
+          entity: user
+  - name: dwh
+    app_defaults:
+      table: SHARE_PROD.DWH.D_PLAYER
+      occurred_at_col: INSERT_DT
+      ids:
+        - select: PLAYER_EXTERNAL_CODE
+          type: PLAYER_EXTERNAL_CODE
+          entity: user
+        - select: lower(EMAIL)
+          type: email
+          entity: user
+  # - name: ga_be
+  #   app_defaults:
+  #     table: SHARE_PROD.RAW_GA.RAW_ANALYTICS_NG_BE
+  #     occurred_at_col: EVENT_DT
+  #     ids:
+  #       - select: lower(USER_ID)
+  #         type: email
+  #         entity: user
+  #       - select: DEVICE_ID
+  #         type: device_id
+  #         entity: user
+  # - name: ga_ro
+  #   app_defaults:
+  #     table: SHARE_PROD.RAW_GA.RAW_ANALYTICS_SB_RO
+  #     occurred_at_col: EVENT_DT
+  #     ids:
+  #       - select: lower(USER_ID)
+  #         type: email
+  #         entity: user
+  # - name: ga_pl
+  #   app_defaults:
+  #     table: SHARE_PROD.RAW_GA.RAW_ANALYTICS_SB_PL
+  #     occurred_at_col: EVENT_DT
+  #     ids:
+  #       - select: DEVICE_ID
+  #         type: device_id
+  #         entity: user
+  #       - select: lower(USER_ID)
+  #         type: email
+  #         entity: user
+  # - name: ga_com
+  #   app_defaults:
+  #     table: SHARE_PROD.RAW_GA.RAW_ANALYTICS_SB_COM
+  #     occurred_at_col: EVENT_DT
+  #     ids:
+  #       - select: DEVICE_ID
+  #         type: device_id
+  #         entity: user
+  #       - select: ANONYMOUS_ID
+  #         type: anonymous_id
+  #         entity: user
+  #       - select: SHOPIFY_CUSTOMER_ID
+  #         type: shopify_customer_id
+  #         entity: user
+  # - name: ga_rs
+  #   app_defaults:
+  #     table: SHARE_PROD.RAW_GA.RAW_ANALYTICS_SB_RS
+  #     occurred_at_col: EVENT_DT
+  #     ids:
+  #       - select: ANONYMOUS_ID
+  #         type: anonymous_id
+  #         entity: user
+  #       - select: SHOPIFY_CUSTOMER_ID
+  #         type: shopify_customer_id
+  #         entity: user
+  #       - select: DEVICE_ID
+  #         type: device_id
+  #         entity: user

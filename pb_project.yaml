@@ -1,0 +1,20 @@
+# Project name
+name: superbet-identity-stitching-poc
+# Project's yaml schema version
+schema_version: 69
+# WH Connection Profile to use.
+connection: wyze_demo
+# Locks the UI to use this version of the profiles library
+python_requirements:
+  - profiles-rudderstack>=0.13.0
+# Model folders to use.
+model_folders:
+  - models
+# Entities in this project and their ids.
+entities:
+  - name: user
+    id_stitcher: models/customer_id_graph
+    id_types:
+      - PLAYER_ID
+      - PLAYER_EXTERNAL_CODE
+      - EMAIL
